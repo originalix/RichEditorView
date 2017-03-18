@@ -228,13 +228,20 @@ RE.setLineHeight = function(height) {
 };
 
 RE.insertImage = function(url, alt) {
-    var img = document.createElement('img');
-    img.setAttribute("src", url);
-    img.setAttribute("alt", alt);
-    img.onload = RE.updateHeight;
+    var id = "img" + (new Date()).getTime();
+    var img = $('<img>');
+    img.attr({
+        src: url,
+        alt: alt,
+        id: id
+    });
+    img[0].onload = RE.updateHeight;
 
-    RE.insertHTML(img.outerHTML);
+    RE.insertHTML(img[0].outerHTML);
     RE.callback("input");
+
+    $("#" + id).wrap('<div class="re-image-wrapper"></div>');
+    $('<div class="re-btn-delete">').insertBefore($("#" + id));
 };
 
 RE.setBlockquote = function() {
@@ -273,6 +280,11 @@ RE.backuprange = function() {
     var selection = window.getSelection();
     if (selection.rangeCount > 0) {
         var range = selection.getRangeAt(0);
+        var target = $(range.startContainer);
+        if (target.hasClass('re-btn-delete')) {
+            target.closest('.re-image-wrapper').remove();
+            return;
+        }
         RE.currentSelection = {
             "startContainer": range.startContainer,
             "startOffset": range.startOffset,
