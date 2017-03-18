@@ -284,6 +284,10 @@ open class RichEditorView: UIView, UIScrollViewDelegate, UIWebViewDelegate, UIGe
         runJS("RE.setHeading('\(h)');")
     }
 
+    public func insertEmoji(_ emoji: String) {
+        runJS("RE.insertEmoji('\(emoji)')")
+    }
+
     public func indent() {
         runJS("RE.setIndent();")
     }
