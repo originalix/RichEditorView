@@ -34,6 +34,9 @@ import UIKit
     /// Called when custom actions are called by callbacks in the JS
     /// By default, this method is not used unless called by some custom JS that you add
     @objc optional func richEditor(_ editor: RichEditorView, handle action: String)
+    
+    /// Called when user taped
+    @objc optional func richEditorTapedByUser(_ editor: RichEditorView)
 }
 
 /// RichEditorView is a UIView that displays richly styled text, and allows it to be edited in a WYSIWYG fashion.
@@ -536,6 +539,7 @@ open class RichEditorView: UIView, UIScrollViewDelegate, UIWebViewDelegate, UIGe
             let point = tapRecognizer.location(in: webView)
             focus(at: point)
         }
+        delegate?.richEditorTapedByUser?(self)
     }
     
 }

@@ -9,5 +9,8 @@ RE.insertEmoji = function(word) {
     }
     var emotion = emotions[index];
     var emojiClass = emotion.substr(emotion.indexOf('_') + 1);
-    RE.insertHTML('<img class="emoji emoji-' + emojiClass + '" src="null.png">');
+    var html = '<img class="emoji emoji-' + emojiClass + '" src="null.png">';
+    RE.insertHTML(html);
+    RE.blurFocus()
+    
 }
