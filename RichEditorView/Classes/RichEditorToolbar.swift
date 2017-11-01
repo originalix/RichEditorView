@@ -26,7 +26,7 @@ import UIKit
 
 /// RichBarButtonItem is a subclass of UIBarButtonItem that takes a callback as opposed to the target-action pattern
 open class RichBarButtonItem: UIBarButtonItem {
-    open var actionHandler: ((Void) -> Void)?
+    open var actionHandler: (() -> Void)?
     
     public convenience init(image: UIImage? = nil, handler: ((Void) -> Void)? = nil) {
         self.init(image: image, style: .plain, target: nil, action: nil)
@@ -42,7 +42,7 @@ open class RichBarButtonItem: UIBarButtonItem {
         actionHandler = handler
     }
     
-    func buttonWasTapped() {
+    @objc func buttonWasTapped() {
         actionHandler?()
     }
 }
